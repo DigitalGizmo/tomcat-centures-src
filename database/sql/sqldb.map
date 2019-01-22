@@ -1,0 +1,4 @@
+#Sqlfile -> Database map
+#Thu Sep 09 17:10:57 EDT 2010
+project-schema.sql=centuriesForum
+id-table-schema.sql=@DATABASE_DEFAULT@

@@ -1,0 +1,221 @@
+
+targetdatabase = mssql
+dbprops.idMethod = $dbprops.get("idMethod")
+BIT = BIT
+TINYINT = TINYINT
+SMALLINT = SMALLINT
+INTEGER = INT
+BIGINT = BIGINT
+FLOAT = FLOAT
+REAL = REAL
+DOUBLE = FLOAT
+NUMERIC = NUMERIC
+DECIMAL = DECIMAL
+CHAR = CHAR
+VARCHAR = VARCHAR
+LONGVARCHAR = TEXT
+DATE = DATETIME
+TIME = DATETIME
+TIMESTAMP = DATETIME
+BINARY = BINARY(7132)
+VARBINARY = IMAGE
+LONGVARBINARY = IMAGE
+NULL = NULL
+OTHER =
+JAVA_OBJECT =
+DISTINCT =
+STRUCT =
+ARRAY =
+BLOB =
+CLOB =
+REF =
+
+AUTOINCREMENT = IDENTITY (1,1)
+NOTNULL = NOT NULL
+
+removeNotNullWithAutoIncrement = false
+suppressDefaults = false
+maxColumnNameLength = 30
+
+  
+        
+    
+    museum.history.deerfield.centuries.database.om
+    museum.history.deerfield.centuries.database.om
+    museum.history.deerfield.centuries.database.om.map
+
+        Failed to create dir or dir already exists: G:\Tomcat-centuries\webapps\ROOT\WEB-INF\src\java/museum\history\deerfield\centuries\database\om\
+
+        Failed to create dir or dir already exists: G:\Tomcat-centuries\webapps\ROOT\WEB-INF\src\java/museum\history\deerfield\centuries\database\om\map\
+
+        Failed to create dir or dir already exists: G:\Tomcat-centuries\webapps\ROOT\WEB-INF\src\java/museum\history\deerfield\centuries\database\om\
+
+                  Visitor
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                Role
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                CollectionItem
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                Activity
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                ActivityItem
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                Status
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                HistoricalEraLabel
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                HistoricalEra
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                GradeLevelLabel
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                GradeLevel
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                ContentAreaLabel
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                ContentArea
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                TeachingPlanStep
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                                WebLink
+        
+                
+
+                  
+        
+              
+                  
+        
+                
+                
+        
+                    

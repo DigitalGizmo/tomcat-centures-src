@@ -1,0 +1,8 @@
+# extensions
+*.jpg
+*.png
+*.gif
+*.log
+
+# directories
+flash/

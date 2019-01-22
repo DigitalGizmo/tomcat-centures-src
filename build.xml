@@ -1,0 +1,139 @@
+<?xml version="1.0"?> 
+
+<!-- 20030819 KRU adapted from the build.xml file that comes in the 
+     struts-blank.jar distributed with Struts. -->
+
+<project name="centuries" basedir="G:/" default="project">
+
+    <!-- Project settings -->
+    <property name="project.title"    value="American Centuries"/>
+    <property name="project.distname" value="centuries"/>
+    <property name="project.version"  value="1.1"/>
+    
+    <!-- Paths -->
+    <property name="tomcat.home" value="Tomcat-centuries"/>
+    <property name="torque.home" value="torque-3.1"/>
+    <property name="web.root"    value="${tomcat.home}/webapps/ROOT"/>
+    <property name="web.inf"     value="${web.root}/WEB-INF"/>
+    <property name="dist"        value="${web.inf}/dist"/>
+    <property name="docs"        value="${web.inf}/doc/api"/>
+    <property name="src"         value="${web.inf}/src/java"/>
+    <property name="classes"     value="${web.inf}/classes"/>
+    
+
+    <path id="compile.classpath">
+      <pathelement path ="${classes}"/>
+      <pathelement path ="${tomcat.home}/common/lib/servlet.jar"/>
+
+      <pathelement path ="${web.inf}/lib/ckc.jar"/>
+      <pathelement path ="${web.inf}/lib/jdom.jar"/>
+      <pathelement path ="${tomcat.home}/common/lib/jasper-runtime.jar" />
+
+      <!-- classpath for Struts 1.1 -->
+      <pathelement path ="${web.inf}/lib/commons-beanutils.jar"/>
+      <pathelement path ="${web.inf}/lib/commons-digester.jar"/>
+      <pathelement path ="${web.inf}/lib/commons-validator.jar"/>
+      <pathelement path ="${web.inf}/lib/struts.jar"/>
+      <pathelement path ="${classes}"/>
+      <!-- classpath for mail -->
+      <pathelement path ="${web.inf}/lib/mail.jar"/>
+      <pathelement path ="${web.inf}/lib/activation.jar"/>
+
+      <!-- classpath for Torque 3.1 -->
+      <pathelement path ="${torque.home}/lib/torque-3.1.jar"/>
+      <pathelement path ="${torque.home}/lib/village-2.0-dev-20030825.jar"/>
+      <pathelement path ="${torque.home}/lib/commons-logging-1.0.3.jar"/>
+      <pathelement path ="${torque.home}/lib/commons-lang-1.0.1.jar"/>
+      <pathelement path ="${torque.home}/lib/commons-collections-2.1.jar"/>
+      <pathelement path ="${torque.home}/lib/commons-configuration-1.0-dev-3.20030607.194155.jar"/>
+      <pathelement path ="${torque.home}/lib/log4j-1.2.8.jar"/>
+        
+      <pathelement path ="${classpath}"/>
+    </path>
+
+
+    <!-- Check timestamp on files -->
+    <target name="prepare">
+      <tstamp/>
+    </target>
+
+
+    <!-- Copy any resource or configuration files -->
+    <target name="resources">
+      <copy todir="${classes}" includeEmptyDirs="no">
+        <fileset dir="${src}">
+          <patternset>
+            <include name="**/*.conf"/>
+            <include name="**/*.properties"/>
+            <include name="**/*.xml"/>
+          </patternset>
+        </fileset>
+      </copy>
+    </target>
+
+
+    <!-- Normal build of application -->
+    <target name="compile" depends="prepare,resources">
+      <javac srcdir="${src}" destdir="${classes}">
+        <classpath refid="compile.classpath"/>
+      </javac>
+    </target>
+
+
+    <!-- Remove classes directory for clean build -->
+    <target name="clean" description="Prepare for clean build">
+      <delete dir="${classes}"/>
+      <mkdir  dir="${classes}"/>
+    </target>
+
+
+    <!-- Build Javadoc documentation -->
+    <target name="javadoc" description="Generate JavaDoc API docs">
+      <delete dir="${docs}"/>
+      <mkdir dir="${docs}"/>
+      <javadoc sourcepath  ="${src}"
+               destdir     ="${docs}"
+               classpath   ="${servlet.jar}"
+               packagenames="*"
+               author      ="true"
+               private     ="true"
+               version     ="true"
+               windowtitle ="${project.title} API Documentation"
+               doctitle    ="&lt;h1&gt;${project.title} Documentation (Version ${project.version})&lt;/h1&gt;"
+               bottom      ="Copyright &#169; 2003">
+        <classpath refid="compile.classpath"/>
+      </javadoc>
+    </target>
+
+
+    <!-- Build entire project -->
+    <target name="project_doc" depends="clean,prepare,compile,javadoc"/>
+
+    <!-- Build  project  no Doc update-->
+    <target name="project" depends="clean,prepare,compile"/>
+
+    <!-- Create binary distribution -->
+    <target name="dist" description="Create binary distribution">
+
+      <mkdir
+        dir="${dist}"/>
+      <jar
+        jarfile="${dist}/${project.distname}-${DSTAMP}.jar"
+        basedir="${classes}"/>
+      <copy
+        file="${dist}/${project.distname}-${DSTAMP}.jar"
+        todir="${dist}"/>
+
+      <war
+        warfile="${dist}/${project.distname}-${DSTAMP}.war"
+        webxml="${web.inf}/web.xml">
+        <exclude name="${dist}/${project.distname}-${DSTAMP}.war"/>
+       </war>
+
+    </target>
+
+
+    <!-- Build project and create distribution-->
+    <target name="all" depends="project,dist"/>
+
+</project>

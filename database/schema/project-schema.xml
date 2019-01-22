@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE database SYSTEM "http://db.apache.org/torque/dtd/database_3_1.dtd">
+
+<database
+  name="centuriesForum"
+  defaultIdMethod="native"
+  defaultJavaNamingMethod="javaname">
+
+  <table name="Visitor">
+    <column
+      name="visitorID"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      autoIncrement="true"/>
+    <column
+      name="visitorName"
+      required="true"
+      type="VARCHAR"
+      size="20"/>
+    <column
+      name="password"
+      required="true"
+      type="VARCHAR"
+      size="20"/>
+    <column
+      name="roleID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="lastName"
+      required="false"
+      type="VARCHAR"
+      size="50"/>
+    <column
+      name="firstName"
+      required="false"
+      type="VARCHAR"
+      size="50"/>
+    <unique>
+      <unique-column name="visitorName"/>
+    </unique>
+    <foreign-key foreignTable="Role">
+      <reference
+        local="roleID"
+        foreign="roleID"/>
+    </foreign-key>
+  </table>
+
+  <table name="Role">
+    <column
+      name="roleID"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"/>
+    <column
+      name="label"
+      required="true"
+      type="VARCHAR"
+      size="20"/>
+  </table>
+
+  <table name="CollectionItem">
+    <column
+      name="visitorID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="itemID"
+      required="true"
+      type="INTEGER"/>
+    <foreign-key foreignTable="Visitor">
+      <reference
+        local="visitorID"
+        foreign="visitorID"/>
+    </foreign-key>
+    <index name="IX_CollectionItem">
+      <index-column
+        name="visitorID"/>
+    </index>
+  </table>
+
+  <table name="Activity">
+    <column
+      name="activityID"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"/>
+    <column
+      name="statusID"
+      required="true"
+      default="0"
+      type="INTEGER"/>
+    <column
+      name="visitorID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="title"
+      required="false"
+      type="VARCHAR"
+      size="100"/>
+    <column
+      name="shortDescription"
+      required="false"
+      type="VARCHAR"
+      size="255"/>
+    <column
+      name="longDescription"
+      required="false"
+      type="LONGVARCHAR"/>
+    <column
+      name="submittedOn"
+      required="false"
+      type="DATE"/>
+    <foreign-key foreignTable="Status">
+      <reference
+        local="statusID"
+        foreign="statusID"/>
+    </foreign-key>
+    <foreign-key foreignTable="Visitor">
+      <reference
+        local="visitorID"
+        foreign="visitorID"/>
+    </foreign-key>
+  </table>
+
+  <table name="ActivityItem">
+    <column
+      name="activityID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="itemID"
+      required="true"
+      type="INTEGER"/>
+    <foreign-key foreignTable="Activity">
+      <reference
+        local="activityID"
+        foreign="activityID"/>
+    </foreign-key>
+    <index name="IX_ActivityItem">
+      <index-column
+        name="activityID"/>
+    </index>
+  </table>
+
+  <table name="Status">
+    <column
+      name="statusID"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"/>
+    <column
+      name="label"
+      required="true"
+      type="VARCHAR"
+      size="50"/>
+  </table>
+
+  <table name="HistoricalEraLabel">
+    <column
+      name="eraID"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"/>
+    <column
+      name="label"
+      required="true"
+      type="VARCHAR"
+      size="50"/>
+  </table>
+
+  <table name="HistoricalEra">
+    <column
+      name="activityID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="eraID"
+      required="true"
+      type="INTEGER"/>
+    <foreign-key foreignTable="Activity">
+      <reference
+        local="activityID"
+        foreign="activityID"/>
+    </foreign-key>
+    <foreign-key foreignTable="HistoricalEraLabel">
+      <reference
+        local="eraID"
+        foreign="eraID"/>
+    </foreign-key>
+    <index name="IX_HistoricalEra">
+      <index-column
+        name="activityID"/>
+    </index>
+  </table>
+
+  <table name="GradeLevelLabel">
+    <column
+      name="levelID"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"/>
+    <column
+      name="label"
+      required="true"
+      type="VARCHAR"
+      size="50"/>
+  </table>
+
+  <table name="GradeLevel">
+    <column
+      name="activityID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="levelID"
+      required="true"
+      type="INTEGER"/>
+    <foreign-key foreignTable="Activity">
+      <reference
+        local="activityID"
+        foreign="activityID"/>
+    </foreign-key>
+    <foreign-key foreignTable="GradeLevelLabel">
+      <reference
+        local="levelID"
+        foreign="levelID"/>
+    </foreign-key>
+    <index name="IX_GradeLevel">
+      <index-column
+        name="activityID"/>
+    </index>
+  </table>
+
+  <table name="ContentAreaLabel">
+    <column
+      name="contentID"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"/>
+    <column
+      name="label"
+      required="true"
+      type="VARCHAR"
+      size="50"/>
+  </table>
+
+  <table name="ContentArea">
+    <column
+      name="activityID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="contentID"
+      required="true"
+      type="INTEGER"/>
+    <foreign-key foreignTable="Activity">
+      <reference
+        local="activityID"
+        foreign="activityID"/>
+    </foreign-key>
+    <foreign-key foreignTable="ContentAreaLabel">
+      <reference
+        local="contentID"
+        foreign="contentID"/>
+    </foreign-key>
+    <index name="IX_ContentArea">
+      <index-column
+        name="activityID"/>
+    </index>
+  </table>
+
+  <table name="TeachingPlanStep">
+    <column
+      name="activityID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="stepNum"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="description"
+      required="false"
+      type="LONGVARCHAR"/>
+    <foreign-key foreignTable="Activity">
+      <reference
+        local="activityID"
+        foreign="activityID"/>
+    </foreign-key>
+    <index name="IX_TeachingPlanStep">
+      <index-column
+        name="activityID"/>
+    </index>
+  </table>
+  
+  <table name="WebLink">
+    <column
+      name="activityID"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="linkNum"
+      required="true"
+      type="INTEGER"/>
+    <column
+      name="title"
+      required="false"
+      type="VARCHAR"
+      size="150"/>
+    <column
+      name="url"
+      required="false"
+      type="VARCHAR"
+      size="180"/>
+    <foreign-key foreignTable="Activity">
+      <reference
+        local="activityID"
+        foreign="activityID"/>
+    </foreign-key>
+    <index name="IX_WebLink">
+      <index-column
+        name="activityID"/>
+    </index>
+  </table>
+
+
+</database>

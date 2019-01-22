@@ -1,0 +1,4 @@
+-- stripWhite does nothing but strip all unnecessary white space out of the activityList page,
+-- in order to minimize its download size.  The human-readable page must be in same directory as
+-- stripWhite, and it must be named "activityList(white).jsp".  stripWhite outputs a file called 
+-- "activityList.jsp" in the same directory, overwriting any pre-existing file by that name.
